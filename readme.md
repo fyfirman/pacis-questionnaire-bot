@@ -10,8 +10,6 @@
 *** fyfirman, pacis-questionnaire-bot, twitter_handle, fyfirman@gmail.com, project_title, project_description
 -->
 
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -22,8 +20,6 @@
 -->
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -45,8 +41,6 @@
     <a href="https://github.com/fyfirman/pacis-questionnaire-bot/issues">Request Feature</a>
   </p>
 </p>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -72,29 +66,25 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
+
 <img src="images/demo.gif" alt="Demo" width="700">
-
-
-
 
 ### Built With
 
-* [The one and only NodeJS](https://nodejs.dev/)
-
-
+- [The one and only NodeJS](https://nodejs.dev/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* npm
+- npm
   ```sh
   npm install npm@latest -g
   ```
@@ -110,26 +100,28 @@ To get a local copy up and running follow these simple steps.
    npm install
    ```
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
-1. Edit `YOUR_USERNAME` and `YOUR_PASSWORD` in `index.js`
-2. Run with one of these mode
+1. Copy .env.example to .env
+2. Fill `PAUS_USERNAME` and `PAUS_PASSWORD` in `.env` with your PAUS credentials
+3. Run with one of these mode
+
    ```sh
    # Development mode
    npm run dev
-   
+
    # Production mode
    npm start
    ```
 
-3. Fill captha and click login
+4. Fill captha and click login
 
-4. Enjoy your grades!
+5. Enjoy your grades!
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -140,28 +132,24 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 Template README by [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Firmansyah Yanuar - [@fyfirman](https://instagram.com/fyfirman) - fyfirman@gmail.com
 
 Project Link: [https://github.com/fyfirman/pacis-questionnaire-bot](https://github.com/fyfirman/pacis-questionnaire-bot)
 
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/fyfirman
