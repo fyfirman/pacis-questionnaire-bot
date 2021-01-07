@@ -1,8 +1,9 @@
 const puppeteer = require("puppeteer")
+require('dotenv').config()
 
-const nilaiDosen = 9
-const yourUsername = 'YOUR_USERNAME'
-const yourPassword = 'YOUR_PASSWORD'
+const nilaiDosen = process.env.NILAI_DOSEN || 7
+const pausUsername = process.env.PAUS_USERNAME
+const pausPassword = process.env.PAUS_PASSWORD
 
 puppeteer.launch({ headless: false }).then(async (browser) => {
   // Initialize
@@ -17,11 +18,11 @@ puppeteer.launch({ headless: false }).then(async (browser) => {
 
   // Insert username
   const username = await page.$('input[name = username]')
-  await username.type(yourUsername)
+  await username.type(pausUsername)
 
   // Insert password
   const pass = await page.$('input[name = password]')
-  await pass.type(yourPassword)
+  await pass.type(pausPassword)
 
   // Redirecting to permission page & accept it
   page.waitForSelector('.account-name', { visible: true }).then(async () => {
