@@ -13,6 +13,12 @@ const STATUS_SUCCEEDED = "succeeded";
 const key = process.env.AZURE_COMPUTER_VISION_KEY;
 const endpoint = process.env.AZURE_COMPUTER_VISION_ENDPOINT;
 
+// Check if computer vision credentials are available
+const isConfigured = () => {
+  const result = (key && endpoint && (key.length > 0) && (endpoint.length > 0)) ? true : false;
+  return result;
+}
+
 // Analyze image from captcha
 const captchaOCR = async () => {
   // Authenticate to Azure service
@@ -47,17 +53,17 @@ async function readTextFromFile(client, localImagePath) {
   return result.analyzeResult.readResults;
 }
 
+// Concatenate received text
 function recText(readResults) {
   let text = '';
-  for (const page in readResults) {
-    const result = readResults[page];
-    if (result.lines.length) {
-      for (const line of result.lines) {
-        text = line.words.map(w => w.text).join(' ').toLowerCase();
-      }
+  const result = readResults[0];
+  if (result.lines.length) {
+    for (const line of result.lines) {
+      text = line.words.map(w => w.text).join(' ').toLowerCase();
     }
-    return text;
   }
+  return text;
 }
 
+exports.isConfigured = isConfigured;
 exports.captchaOCR = captchaOCR;

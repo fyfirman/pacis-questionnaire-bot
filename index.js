@@ -22,39 +22,66 @@ puppeteer
         waitUntil: ["networkidle2", "domcontentloaded"],
       })
       .then(() => console.log("Menunggu login..."));
-    
-    // Insert username
-    const username = await page.$("input[name = username]");
-    await username.type(pausUsername);
 
-    // Insert password
-    const pass = await page.$("input[name = password]");
-    await pass.type(pausPassword);
+    async function fillSignInForm() {
+      // Insert username
+      await page.evaluate(
+        () => (document.querySelector("input[name = username]").value = "")
+      );
+      const username = await page.$("input[name = username]");
+      await username.type(pausUsername);
 
-    // Prepare captcha image
-    const IMAGE_SELECTOR = ".captcha-img > img";
-    let imageHref = await page.evaluate((sel) => {
-      return document.querySelector(sel).getAttribute("src");
-    }, IMAGE_SELECTOR);
-    
-    const imgPage = await browser.newPage();
-    var viewSource = await imgPage.goto(imageHref);
-    fs.writeFile("a.jpeg", await viewSource.buffer(), function (err) {
-      if (err) return console.log(err);
-    });
-    imgPage.close();
+      // Insert password
+      const pass = await page.$("input[name = password]");
+      await pass.type(pausPassword);
+    }
 
-    const captchaText = await ocr.captchaOCR();
-    const captcha = await page.$("input[name = captcha]");
-    await captcha.type(captchaText);
+    async function captchaSolve() {
+      // Prepare captcha image
+      const IMAGE_SELECTOR = ".captcha-img > img";
+      let imageHref = await page.evaluate((sel) => {
+        return document.querySelector(sel).getAttribute("src");
+      }, IMAGE_SELECTOR);
 
-    // Click sign in button
-    const button = await page.$('.ui.form .right.aligned.field .button:last-child').catch((error) => console.error(error));
-    await button.evaluate(b => b.click());
+      const imgPage = await browser.newPage();
+      var viewSource = await imgPage.goto(imageHref);
+      fs.writeFile("a.jpeg", await viewSource.buffer(), function (err) {
+        if (err) return console.log(err);
+      });
+      imgPage.close();
+
+      const captchaText = await ocr.captchaOCR();
+      const captcha = await page.$("input[name = captcha]");
+      await captcha.type(captchaText);
+
+      // Click sign in button
+      const button = await page
+        .$(".ui.form .right.aligned.field .button:last-child")
+        .catch((error) => console.error(error));
+      await button.evaluate((b) => b.click());
+    }
+
+    async function interceptSignIn() {
+      page
+        .waitForSelector(".ui.error.message", { visible: true })
+        .then(async () => {
+          await fillSignInForm();
+          await captchaSolve();
+        });
+    }
+
+    await fillSignInForm();
+
+    // If credentials not yet configured, skip captcha autosolver
+    if (ocr.isConfigured()) {
+      page.on("load", interceptSignIn);
+      await captchaSolve();
+    }
 
     // Redirecting to permission page & accept it
-    await page.waitForSelector(".account-name", { visible: true }).then(async () => {
+    page.waitForSelector(".account-name", { visible: true }).then(async () => {
       console.log("Berhasil sign in");
+      page.off("load", interceptSignIn);
       await page
         .goto("https://students.unpad.ac.id/pacis/mhs_home", {
           waitUntil: ["networkidle2", "domcontentloaded"],
@@ -70,8 +97,18 @@ puppeteer
         .then(() => console.log("Izin telah diterima."));
     });
 
+    // If tagihan prompt still exists
+    page.waitForSelector("#next", { visible: true }).then(async () => {
+      await page.$eval(
+        "#next",
+        (b) => b.click()
+      );
+    }).catch ((error) => {
+      console.log("Lompat ke transkrip nilai page");
+    });
+
     // Redirecting to transkrip nilai page
-    await page.waitForSelector("#menu", { visible: true }).then(async () => {
+    page.waitForSelector("#menu", { visible: true }).then(async () => {
       const urlHalamanTranskrip =
         "https://students.unpad.ac.id/pacis/akademik/transkrip_nilai";
       await page

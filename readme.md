@@ -106,7 +106,8 @@ To get a local copy up and running follow these simple steps.
 
 1. Copy .env.example to .env
 2. Fill `PAUS_USERNAME` and `PAUS_PASSWORD` in `.env` with your PAUS credentials
-3. Run with one of these mode
+3. (Optional) Fill `AZURE_COMPUTER_VISION_KEY` and `AZURE_COMPUTER_VISION_ENDPOINT` in `.env` with your Azure Computer Vision service credentials
+4. Run with one of these mode
 
    ```sh
    # Development mode
@@ -116,9 +117,9 @@ To get a local copy up and running follow these simple steps.
    npm start
    ```
 
-4. Fill captha and click login
+5. Fill captcha and click login if you skipped step no. 2
 
-5. Enjoy your grades!
+6. Enjoy your grades!
 
 <!-- CONTRIBUTING -->
 
