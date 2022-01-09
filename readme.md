@@ -117,9 +117,16 @@ To get a local copy up and running follow these simple steps.
    npm start
    ```
 
-5. Fill captcha and click login if you skipped step no. 2
+5. Fill captcha and click login if you skipped step no. 3
 
 6. Enjoy your grades!
+
+### How to get your Azure Computer Vision key and endpoint
+
+1. You need to have an Azure subscription. Create one for free [here](https://azure.microsoft.com/en-us/free/cognitive-services/).
+2. Once you have your Azure subscription, [create a Computer Vision resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision) in the Azure portal to get your key and endpoint. After it deploys, click **Go to resource**.
+3. You can find your subscription key and endpoint in the resource's key and endpoint page, under resource management.
+4. Your Computer Vision endpoint has the form `https://<your_computer_vision_resource_name>.cognitiveservices.azure.com/`.
 
 <!-- CONTRIBUTING -->
 
