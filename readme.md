@@ -106,7 +106,8 @@ To get a local copy up and running follow these simple steps.
 
 1. Copy .env.example to .env
 2. Fill `PAUS_USERNAME` and `PAUS_PASSWORD` in `.env` with your PAUS credentials
-3. Run with one of these mode
+3. (Optional) Fill `AZURE_COMPUTER_VISION_KEY` and `AZURE_COMPUTER_VISION_ENDPOINT` in `.env` with your Azure Computer Vision service credentials
+4. Run with one of these mode
 
    ```sh
    # Development mode
@@ -116,9 +117,16 @@ To get a local copy up and running follow these simple steps.
    npm start
    ```
 
-4. Fill captha and click login
+5. Fill captcha and click login if you skipped step no. 3
 
-5. Enjoy your grades!
+6. Enjoy your grades!
+
+### How to get your Azure Computer Vision key and endpoint
+
+1. You need to have an Azure subscription. Create one for free [here](https://azure.microsoft.com/en-us/free/cognitive-services/).
+2. Once you have your Azure subscription, [create a Computer Vision resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision) in the Azure portal to get your key and endpoint. After it deploys, click **Go to resource**.
+3. You can find your subscription key and endpoint in the resource's key and endpoint page, under resource management.
+4. Your Computer Vision endpoint has the form `https://<your_computer_vision_resource_name>.cognitiveservices.azure.com/`.
 
 <!-- CONTRIBUTING -->
 
